@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { GroepsLid } from './GroepsLid';
 
-@Injectable()
+// @Injectable()
 export class Betaling {
     constructor (
         public betalingsNummer : number,

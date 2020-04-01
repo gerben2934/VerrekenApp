@@ -4,9 +4,9 @@ import { GroepsLid } from '../models/GroepsLid';
 import { elementEventFullName } from '@angular/compiler/src/view_compiler/view_compiler';
 
 @Optional()
-@Injectable( {
-    providedIn: 'root'
-})
+// @Injectable( {
+//     providedIn: 'root'
+// })
 
 export class Rekening {
 
