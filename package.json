@@ -1,6 +1,9 @@
 {
   "name": "verreken-app",
   "version": "0.0.0",
+  "engines": {
+    "node": "v10.15.1"
+  },
   "scripts": {
     "ng": "ng",
     "start": "node server.js",
