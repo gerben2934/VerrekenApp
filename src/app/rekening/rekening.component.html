@@ -1,0 +1,71 @@
+<div class="container">
+    
+<h2>Voeg een nieuwe betaling toe:</h2>
+<div class="form">
+    <form [formGroup]="addPaymentForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            Naam van de betaler: <input #boxName type="text" class="form-control" placeholder="Naam" formControlName="boxName" id="boxName"><br> <!--(keyup.enter)="onEnter(boxPayed.value)"-->
+            Bedrag in euro's: <input #boxPayed type="text" data-type="currency" onkeyup="this.value=this.value.replace(/[^0-9,.]/,'')" class="form-control" name="boxPayed" placeholder="Bedrag in euro's (xx.xx)" formControlName="boxPayed" id="boxPayed"><br>
+            Betalingsomschrijving: <input #boxPayDescription type="text" #boxPayDescription class="form-control" name="boxPayDescription" placeHolder="Betaling omschrijving" formControlName="boxPayDescription" id="boxPayDescription"><br>
+        </div>
+
+        <button
+        [disabled]="!addPaymentForm.valid"
+        class="btn btn-primary center-block"
+        type="submit">Voeg betaling toe</button>
+
+        <span
+            *ngIf="paymentInvalid" class="help-block">
+            <p>Vul eerst alle velden in!</p>
+        </span> 
+    </form>
+</div>
+<br>
+<H2>De rekening:</H2>
+<span *ngIf="rekening.betalingen.length > 0">
+    <p>De betalingen die door iedereen gedaan zijn: </p>
+    <ul>
+        <li *ngFor="let betaling of rekening.betalingen">
+            <span> {{betaling.persoon.naam}} heeft: € {{betaling.prijs}} betaald voor {{betaling.betalingsOmschrijving}}.</span>
+        </li>
+    </ul>
+    <p> Het totaalbedrag van de rekening bedraagd: € {{rekening.totaalBedrag}}</p><br>
+</span>
+<span *ngIf="rekening.betalingen.length == 0">
+    <p>Er zijn momenteel nog geen betalingen gedaan!</p>
+</span><br>
+
+
+<!-- <h2>Wat iedereen betaald heeft:</h2>
+<ul>
+    <li *ngFor="let groepslid of rekening.groepsleden">
+        <span> {{groepslid.naam}} heeft totaal: € {{groepslid.totaalBetaald}} betaald.</span>
+    </li>
+</ul> -->
+
+<h2>Bereken de betaalverzoekjes:</h2>
+<p>Klik op de knop hiernaast om alle betaalverzoekjes uit te kunnen rekenen.</p>
+<button type="button" 
+        class="btn btn-primary center-block" 
+        (click)="CalculatePayments()">Reken uit</button> 
+
+<span
+    *ngIf="paymentsEmtpy && calculateDifferencesButtonClicked" class="help-block">
+    <p>Voeg eerst rekeningen toe!</p>
+</span> 
+
+<ul>
+    <span *ngIf="calculateDifferencesButtonClicked">
+    <li *ngFor="let groepslid of rekening.groepsleden">
+        <span *ngIf="groepslid.overSchot > 0" class="help-block">
+            {{groepslid.naam}} krijgt nog: € {{groepslid.overSchot}} uit de pot.
+        </span>
+
+        <span *ngIf="groepslid.overSchot < 0" class="help-block">
+            {{groepslid.naam}} moet nog: € {{ -1 * groepslid.overSchot}} betalen aan de pot.
+        </span>
+    </li>
+    </span>
+</ul>
+</div>
+
